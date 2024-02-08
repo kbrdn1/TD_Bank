@@ -20,14 +20,14 @@ class AccountTest {
     }
 
     @Test
-    void debit() {
+    void debit() throws Exception {
         account.debit(100);
         assertEquals(900, account.getSold());
     }
 
     @Test
     void debitError() {
-        assertThrows(RuntimeException.class, () -> {
+        assertThrows(Exception.class, () -> {
             account.debit(-100);
         });
     }
