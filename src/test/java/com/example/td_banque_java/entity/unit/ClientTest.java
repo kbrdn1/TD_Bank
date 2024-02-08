@@ -1,5 +1,7 @@
-package com.example.td_banque_java.entity;
+package com.example.td_banque_java.entity.unit;
 
+import com.example.td_banque_java.entity.Bank;
+import com.example.td_banque_java.entity.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

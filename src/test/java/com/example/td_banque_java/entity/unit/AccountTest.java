@@ -1,7 +1,11 @@
-package com.example.td_banque_java.entity;
+package com.example.td_banque_java.entity.unit;
 
+import com.example.td_banque_java.entity.Account;
+import com.example.td_banque_java.entity.Bank;
+import com.example.td_banque_java.entity.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.util.AssertionErrors;
 
 import java.util.List;
 
@@ -25,9 +29,23 @@ class AccountTest {
     }
 
     @Test
+    void debitError() {
+        assertThrows(RuntimeException.class, () -> {
+            account.debit(-100);
+        });
+    }
+
+    @Test
     void credit() {
         account.credit(100);
         assertEquals(1100, account.getSold());
+    }
+
+    @Test
+    void creditError() {
+        assertThrows(RuntimeException.class, () -> {
+            account.credit(-100);
+        });
     }
 
     @Test
