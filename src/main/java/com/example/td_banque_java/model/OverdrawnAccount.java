@@ -1,7 +1,6 @@
-package com.example.td_banque_java.entity;
+package com.example.td_banque_java.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
