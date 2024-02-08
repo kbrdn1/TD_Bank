@@ -2,7 +2,6 @@ package com.example.td_banque_java.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -13,7 +12,7 @@ public class AccountEntity {
     private long id;
 
     @PositiveOrZero
-    private double sold;
+    private double balance;
     @NotBlank
     private String numberAccount;
     @ManyToOne

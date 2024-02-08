@@ -30,24 +30,83 @@ class OverdrawnAccountTest {
     }
 
     @Test
-    void debit() {
+    void debit() throws IllegalAccessException {
         account.debit(100);
-        assertEquals(900, account.getSold());
+        assertEquals(900, account.getBalance());
     }
 
     @Test
     void debitErrorAmountNegatif() {
-        assertThrows(RuntimeException.class, () -> {
+        assertThrows(IllegalAccessException.class, () -> {
             account.debit(-100);
         });
     }
 
     @Test
     void debitErrorOverdrawnAutorized() {
-        account.setSold(0);
-        assertThrows(RuntimeException.class, () -> {
+        account.setBalance(0);
+        assertThrows(IllegalAccessException.class, () -> {
             account.debit(-200);
         });
+    }
+
+    @Test
+    void credit() throws IllegalAccessException {
+        account.credit(100);
+        assertEquals(1100, account.getBalance());
+    }
+
+    @Test
+    void creditError() {
+        assertThrows(IllegalAccessException.class, () -> {
+            account.credit(-100);
+        });
+    }
+
+    @Test
+    void getSold() {
+        assertEquals(1000, account.getBalance());
+    }
+
+    @Test
+    void getNumberAccount() {
+        assertEquals("1", account.getNumberAccount());
+    }
+
+    @Test
+    void getClient() {
+        assertEquals("1", account.getClient().getNumberClient());
+    }
+
+    @Test
+    void getBank() {
+        assertNotNull(account.getBank());
+    }
+
+    @Test
+    void setSold() {
+        account.setBalance(2000);
+        assertEquals(2000, account.getBalance());
+    }
+
+    @Test
+    void setNumberAccount() {
+        account.setNumberAccount("2");
+        assertEquals("2", account.getNumberAccount());
+    }
+
+    @Test
+    void setClient() {
+        Client client = new Client("2", "client2", "address2", new Bank());
+        account.setClient(client);
+        assertEquals(client, account.getClient());
+    }
+
+    @Test
+    void setBank() {
+        Bank bank = new Bank();
+        account.setBank(bank);
+        assertEquals(bank, account.getBank());
     }
 
 

@@ -13,15 +13,15 @@ public class Bank {
 
     private HashMap<Account, Client> accountsByClient;
 
-    public void withdraw(Account account, double amount, String numberClient) throws Exception {
-        if (accountsByClient.get(account).getNumberClient().equals(numberClient))
+    public void withdraw(Account account, double amount, String client) throws IllegalAccessException {
+        if(accountsByClient.get(account).getName().equals(client))
             account.debit(amount);
         else
             throw new Exception("The customer number does not match the bank account.");
     }
 
-    public void depot(Account account, double amount, String numberClient) {
-        if (accountsByClient.get(account).getNumberClient().equals(numberClient))
+    public void depot(Account account, double amount, String client) throws IllegalAccessException {
+        if(accountsByClient.get(account).getName().equals(client))
             account.credit(amount);
     }
 

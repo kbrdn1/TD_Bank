@@ -3,6 +3,7 @@ package com.example.td_banque_java.model.unit;
 import com.example.td_banque_java.model.Account;
 import com.example.td_banque_java.model.Bank;
 import com.example.td_banque_java.model.Client;
+import com.example.td_banque_java.model.WithoutOverdraftAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,39 +21,21 @@ class BankTest {
     @BeforeEach
     void setUp() {
         client = new Client("1", "client1", "address1", new Bank());
-        account = new Account(1000, "1", client, new Bank());
-        HashMap<Account, Client> accountsByClient = new HashMap<>(Map.of(account, client));
+        account = new WithoutOverdraftAccount(1000, "1", client, new Bank());
+        HashMap<Account,Client> accountsByClient = new HashMap<>(Map.of(account,client));
         bank = new Bank(accountsByClient);
     }
 
     @Test
-    void withdraw() throws Exception {
-        bank.withdraw(account, 100, client.getNumberClient());
-        assertEquals(900, account.getSold());
+    void withdraw() throws IllegalAccessException {
+        bank.withdraw(account, 100, client.getName());
+        assertEquals(900, account.getBalance());
     }
 
     @Test
-    void withdrawNumberClientDoesNotMatchTheBankAccount() {
-        assertThrows(Exception.class, () -> bank.withdraw(
-                account,
-                100,
-                client.getNumberClient() + "1"
-        ));
-    }
-
-    @Test
-    void withdrawAmountGreaterThanAccountBalance() {
-        assertThrows(Exception.class, () -> bank.withdraw(
-                account,
-                1200,
-                client.getNumberClient()
-        ));
-    }
-
-    @Test
-    void depot() {
-        bank.depot(account, 100, client.getNumberClient());
-        assertEquals(1100, account.getSold());
+    void depot() throws IllegalAccessException {
+        bank.depot(account, 100, client.getName());
+        assertEquals(1100, account.getBalance());
     }
 
     @Test

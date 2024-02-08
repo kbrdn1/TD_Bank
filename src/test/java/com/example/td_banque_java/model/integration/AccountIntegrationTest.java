@@ -11,18 +11,4 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class AccountIntegrationTest {
 
-    private Account account;
-
-    @BeforeEach
-    void setUp() {
-        Bank bank = new Bank();
-        Client client = new Client("1", "client1", "address1", bank);
-        account = new Account(1000, "1", client, bank);
-    }
-
-    @Test
-    void integrationAccount() {
-
-    }
-
 }
