@@ -12,9 +12,9 @@ public class Account {
     protected Client client;
     protected Bank bank;
 
-    public void debit(double amount) {
-        if(amount < 0)
-            throw new RuntimeException("Debit not authorized");
+    public void debit(double amount) throws Exception {
+        if(amount < 0 || this.sold - amount < 0)
+            throw new Exception("Debit not authorized");
         this.sold -= amount;
     }
 

@@ -41,6 +41,15 @@ class BankTest {
     }
 
     @Test
+    void withdrawAmountGreaterThanAccountBalance() {
+        assertThrows(Exception.class, () -> bank.withdraw(
+                account,
+                1200,
+                client.getNumberClient()
+        ));
+    }
+
+    @Test
     void depot() {
         bank.depot(account, 100, client.getNumberClient());
         assertEquals(1100, account.getSold());
