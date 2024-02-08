@@ -15,11 +15,11 @@ public class OverdrawnAccount extends Account{
 
     @Override
    public void debit(double amount) throws IllegalAccessException {
-        if(this.sold - amount < -this.overdrawnAutorized)
+        if(this.balance - amount < -this.overdrawnAutorized)
             throw new IllegalAccessException("Overdrawn not authorized");
         if(amount < 0)
             throw new IllegalAccessException("Debit not authorized");
-        this.sold -= amount;
+        this.balance -= amount;
     }
 
 }

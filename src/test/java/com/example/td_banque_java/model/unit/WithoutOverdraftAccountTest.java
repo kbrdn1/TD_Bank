@@ -1,6 +1,5 @@
 package com.example.td_banque_java.model.unit;
 
-import com.example.td_banque_java.model.Account;
 import com.example.td_banque_java.model.Bank;
 import com.example.td_banque_java.model.Client;
 import com.example.td_banque_java.model.WithoutOverdraftAccount;
@@ -24,7 +23,7 @@ class WithoutOverdraftAccountTest {
     @Test
     void debit() throws IllegalAccessException {
         account.debit(100);
-        assertEquals(900, account.getSold());
+        assertEquals(900, account.getBalance());
     }
 
     @Test
@@ -37,7 +36,7 @@ class WithoutOverdraftAccountTest {
     @Test
     void credit() throws IllegalAccessException {
         account.credit(100);
-        assertEquals(1100, account.getSold());
+        assertEquals(1100, account.getBalance());
     }
 
     @Test
@@ -49,7 +48,7 @@ class WithoutOverdraftAccountTest {
 
     @Test
     void getSold() {
-        assertEquals(1000, account.getSold());
+        assertEquals(1000, account.getBalance());
     }
 
     @Test
@@ -69,8 +68,8 @@ class WithoutOverdraftAccountTest {
 
     @Test
     void setSold() {
-        account.setSold(2000);
-        assertEquals(2000, account.getSold());
+        account.setBalance(2000);
+        assertEquals(2000, account.getBalance());
     }
 
     @Test

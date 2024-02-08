@@ -32,7 +32,7 @@ class OverdrawnAccountTest {
     @Test
     void debit() throws IllegalAccessException {
         account.debit(100);
-        assertEquals(900, account.getSold());
+        assertEquals(900, account.getBalance());
     }
 
     @Test
@@ -44,7 +44,7 @@ class OverdrawnAccountTest {
 
     @Test
     void debitErrorOverdrawnAutorized() {
-        account.setSold(0);
+        account.setBalance(0);
         assertThrows(IllegalAccessException.class, () -> {
             account.debit(-200);
         });
@@ -53,7 +53,7 @@ class OverdrawnAccountTest {
     @Test
     void credit() throws IllegalAccessException {
         account.credit(100);
-        assertEquals(1100, account.getSold());
+        assertEquals(1100, account.getBalance());
     }
 
     @Test
@@ -65,7 +65,7 @@ class OverdrawnAccountTest {
 
     @Test
     void getSold() {
-        assertEquals(1000, account.getSold());
+        assertEquals(1000, account.getBalance());
     }
 
     @Test
@@ -85,8 +85,8 @@ class OverdrawnAccountTest {
 
     @Test
     void setSold() {
-        account.setSold(2000);
-        assertEquals(2000, account.getSold());
+        account.setBalance(2000);
+        assertEquals(2000, account.getBalance());
     }
 
     @Test

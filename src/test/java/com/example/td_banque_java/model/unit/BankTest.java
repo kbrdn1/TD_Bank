@@ -30,13 +30,13 @@ class BankTest {
     @Test
     void withdraw() throws IllegalAccessException {
         bank.withdraw(account, 100, client.getName());
-        assertEquals(900, account.getSold());
+        assertEquals(900, account.getBalance());
     }
 
     @Test
     void depot() throws IllegalAccessException {
         bank.depot(account, 100, client.getName());
-        assertEquals(1100, account.getSold());
+        assertEquals(1100, account.getBalance());
     }
 
     @Test

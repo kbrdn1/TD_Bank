@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public abstract class Account {
 
-    protected double sold;
+    protected double balance;
     protected String numberAccount;
     protected Client client;
     protected Bank bank;
@@ -15,12 +15,12 @@ public abstract class Account {
     public void debit(double amount) throws IllegalAccessException {
         if(amount < 0)
             throw new IllegalAccessException("Debit not authorized");
-        this.sold -= amount;
+        this.balance -= amount;
     }
 
     public void credit(double amount) throws IllegalAccessException {
         if(amount < 0)
             throw new IllegalAccessException("Debit not authorized");
-        this.sold += amount;
+        this.balance += amount;
     }
 }
