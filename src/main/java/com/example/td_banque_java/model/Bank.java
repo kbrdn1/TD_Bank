@@ -14,12 +14,12 @@ public class Bank {
 
     private HashMap<Account, Client> accountsByClient;
 
-    public void withdraw(Account account, double amount, String client) {
+    public void withdraw(Account account, double amount, String client) throws IllegalAccessException {
         if(accountsByClient.get(account).getName().equals(client))
             account.debit(amount);
     }
 
-    public void depot(Account account, double amount, String client) {
+    public void depot(Account account, double amount, String client) throws IllegalAccessException {
         if(accountsByClient.get(account).getName().equals(client))
             account.credit(amount);
     }
