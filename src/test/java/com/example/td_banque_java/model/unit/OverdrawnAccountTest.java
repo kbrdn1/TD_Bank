@@ -1,5 +1,8 @@
-package com.example.td_banque_java.entity;
+package com.example.td_banque_java.model.unit;
 
+import com.example.td_banque_java.model.Bank;
+import com.example.td_banque_java.model.Client;
+import com.example.td_banque_java.model.OverdrawnAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,4 +28,27 @@ class OverdrawnAccountTest {
         account.setOverdrawnAutorized(200);
         assertEquals(200, account.getOverdrawnAutorized());
     }
+
+    @Test
+    void debit() {
+        account.debit(100);
+        assertEquals(900, account.getSold());
+    }
+
+    @Test
+    void debitErrorAmountNegatif() {
+        assertThrows(RuntimeException.class, () -> {
+            account.debit(-100);
+        });
+    }
+
+    @Test
+    void debitErrorOverdrawnAutorized() {
+        account.setSold(0);
+        assertThrows(RuntimeException.class, () -> {
+            account.debit(-200);
+        });
+    }
+
+
 }

@@ -1,9 +1,10 @@
-package com.example.td_banque_java.entity;
+package com.example.td_banque_java.model.unit;
 
+import com.example.td_banque_java.model.Account;
+import com.example.td_banque_java.model.Bank;
+import com.example.td_banque_java.model.Client;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,9 +26,23 @@ class AccountTest {
     }
 
     @Test
+    void debitError() {
+        assertThrows(RuntimeException.class, () -> {
+            account.debit(-100);
+        });
+    }
+
+    @Test
     void credit() {
         account.credit(100);
         assertEquals(1100, account.getSold());
+    }
+
+    @Test
+    void creditError() {
+        assertThrows(RuntimeException.class, () -> {
+            account.credit(-100);
+        });
     }
 
     @Test
