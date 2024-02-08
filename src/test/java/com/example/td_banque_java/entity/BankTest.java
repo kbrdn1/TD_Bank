@@ -14,30 +14,30 @@ class BankTest {
     private Client client;
     private Account account;
 
-    private Map<Client,Account> accountsByClient;
+    private Map<Account,Client> accountsByClient;
     @BeforeEach
     void setUp() {
         client = new Client("1", "client1", "address1", new Bank());
         account = new Account(1000, "1", client, new Bank());
-        HashMap<Client,Account> accountsByClient = new HashMap<>(Map.of(client, account));
+        HashMap<Account,Client> accountsByClient = new HashMap<>(Map.of(account,client));
         bank = new Bank(accountsByClient);
     }
 
     @Test
     void withdraw() {
-        bank.withdraw("1", 100, client);
-        assertEquals(900, bank.getAccountsByClient().get(client).getSold());
+        bank.withdraw(account, 100, client.getName());
+        assertEquals(900, account.getSold());
     }
 
     @Test
     void depot() {
-        bank.depot("1", 100, client);
-        assertEquals(1100, bank.getAccountsByClient().get(client).getSold());
+        bank.depot(account, 100, client.getName());
+        assertEquals(1100, account.getSold());
     }
 
     @Test
     void openAccount() {
-        HashMap<Client,Account> accountsByClient = new HashMap<>(Map.of(client, account));
+        HashMap<Account,Client> accountsByClient = new HashMap<>(Map.of(account,client));
         bank.openAccount(account, client);
         assertEquals(accountsByClient.size(), bank.getAccountsByClient().size());
     }
