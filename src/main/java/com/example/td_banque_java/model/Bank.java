@@ -1,6 +1,5 @@
 package com.example.td_banque_java.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +16,8 @@ public class Bank {
     public void withdraw(Account account, double amount, String client) throws IllegalAccessException {
         if(accountsByClient.get(account).getName().equals(client))
             account.debit(amount);
+        else
+            throw new Exception("The customer number does not match the bank account.");
     }
 
     public void depot(Account account, double amount, String client) throws IllegalAccessException {
@@ -25,7 +26,7 @@ public class Bank {
     }
 
     public void openAccount(Account account, Client client) {
-        if(accountsByClient == null)
+        if (accountsByClient == null)
             accountsByClient = new HashMap<>();
         accountsByClient.put(account, client);
     }

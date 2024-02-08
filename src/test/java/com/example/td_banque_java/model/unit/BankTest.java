@@ -18,7 +18,6 @@ class BankTest {
     private Client client;
     private Account account;
 
-    private Map<Account,Client> accountsByClient;
     @BeforeEach
     void setUp() {
         client = new Client("1", "client1", "address1", new Bank());
@@ -41,18 +40,22 @@ class BankTest {
 
     @Test
     void openAccount() {
-        HashMap<Account,Client> accountsByClient = new HashMap<>(Map.of(account,client));
-        bank.openAccount(account, client);
-        assertEquals(accountsByClient.size(), bank.getAccountsByClient().size());
+        Client newClient = new Client("2", "client2", "address2", new Bank());
+        Account newAccount = new Account(2000, "2", newClient, new Bank());
+        bank.openAccount(newAccount, newClient);
+
+        assertTrue(bank.getAccountsByClient().containsKey(newAccount));
     }
 
     @Test
     void convertFromEuro() {
-        assertEquals(110.00000000000001, bank.convertFromEuro(100));
+        assertEquals(110, bank.convertFromEuro(100), 0.001);
+        assertEquals(0, bank.convertFromEuro(0), 0.001);
     }
 
     @Test
     void convertToEuro() {
-        assertEquals(99.99999999999999, bank.convertToEuro(110));
+        assertEquals(100, bank.convertToEuro(110), 0.001);
+        assertEquals(0, bank.convertToEuro(0), 0.001);
     }
 }
