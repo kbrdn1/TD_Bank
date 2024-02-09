@@ -9,11 +9,24 @@ import lombok.Setter;
 @Setter
 public class WithoutOverdraftAccount extends Account {
 
+    /**
+     * Constructor
+     *
+     * @param sold
+     * @param numberAccount
+     * @param client
+     * @param bank
+     */
     public WithoutOverdraftAccount(double sold, String numberAccount, Client client, Bank bank) {
         super(sold, numberAccount, client, bank);
     }
 
-
+    /**
+     * Debit money from an account
+     *
+     * @param amount
+     * @throws IllegalArgumentException
+     */
     @Override
     public void debit(double amount) throws IllegalArgumentException {
         if(amount < 0)

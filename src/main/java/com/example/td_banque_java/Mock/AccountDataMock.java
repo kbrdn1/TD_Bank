@@ -12,6 +12,11 @@ import java.util.List;
 @Component
 public class AccountDataMock {
 
+    /**
+     * Generate data related to accounts
+     *
+     * @return List<Account>
+     */
     public List<Account> generateData() {
         List<Account> accountEntities = new ArrayList<>();
         Client client = new Client("1", "Client 1","rue blabla", new Bank());
