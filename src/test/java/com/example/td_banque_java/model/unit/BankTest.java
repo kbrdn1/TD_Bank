@@ -3,7 +3,9 @@ package com.example.td_banque_java.model.unit;
 import com.example.td_banque_java.model.account.Account;
 import com.example.td_banque_java.model.Bank;
 import com.example.td_banque_java.model.Client;
+import com.example.td_banque_java.model.account.OverdrawnAccount;
 import com.example.td_banque_java.model.account.WithoutOverdraftAccount;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,30 +14,69 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 class BankTest {
 
     private Bank bank;
     private Client client;
-    private Account account;
+    private Account withoutOverdraftAccount;
+    private Account overdrawnAccount;
 
     @BeforeEach
     void setUp() {
-        client = new Client("1", "client1", "address1", new Bank());
-        account = new WithoutOverdraftAccount(1000, "1", client, new Bank());
-        HashMap<Account,Client> accountsByClient = new HashMap<>(Map.of(account,client));
-        bank = new Bank(accountsByClient);
+        bank = new Bank();
+
+        client = new Client("1", "client1", "address1", bank);
+
+        withoutOverdraftAccount = new WithoutOverdraftAccount(1000, "1", client, bank);
+        overdrawnAccount = new OverdrawnAccount(1000, "2", client, bank, 300);
+
+        HashMap<Account,Client> accountsByClient = new HashMap<>(Map.of(withoutOverdraftAccount,client));
+        accountsByClient.put(overdrawnAccount,client);
+
+        bank.setAccountsByClient(accountsByClient);
     }
 
     @Test
-    void withdraw() throws IllegalAccessException {
-        bank.withdraw(account, 100, client.getName());
-        assertEquals(900, account.getBalance());
+    void withdrawFromAnAccountWithoutAuthorizedOverdraft() throws IllegalAccessException {
+        bank.withdraw(withoutOverdraftAccount, 100, client.getName());
+        assertEquals(900, withoutOverdraftAccount.getBalance());
+    }
+
+    @Test
+    void withdrawFromAnAccountWithAuthorizedOverdraft() throws IllegalAccessException {
+        bank.withdraw(overdrawnAccount, 1200, client.getName());
+        assertEquals(-200, overdrawnAccount.getBalance());
+    }
+
+    @Test
+    void withdrawNumberClientDoesNotMatchTheBankAccount() {
+        assertThrows(IllegalAccessException.class, () -> bank.withdraw(
+                withoutOverdraftAccount,
+                100,
+                client.getNumberClient() + "1"
+        ));
+    }
+
+    @Test
+    void withdrawAmountGreaterThanAuthorized() {
+        assertThrows(IllegalAccessException.class, () -> bank.withdraw(
+                withoutOverdraftAccount,
+                1200,
+                client.getNumberClient()
+        ));
+
+        assertThrows(IllegalAccessException.class, () -> bank.withdraw(
+                overdrawnAccount,
+                1400,
+                client.getNumberClient()
+        ));
     }
 
     @Test
     void depot() throws IllegalAccessException {
-        bank.depot(account, 100, client.getName());
-        assertEquals(1100, account.getBalance());
+        bank.depot(withoutOverdraftAccount, 100, client.getName());
+        assertEquals(1100, withoutOverdraftAccount.getBalance());
     }
 
     @Test

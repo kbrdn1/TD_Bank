@@ -1,13 +1,12 @@
 package com.example.td_banque_java.model;
 
 import com.example.td_banque_java.model.account.Account;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashMap;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bank {
