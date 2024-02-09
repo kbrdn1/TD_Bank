@@ -13,13 +13,14 @@ public class AccountEntity {
 
     @PositiveOrZero
     private double balance;
+
     @NotBlank
     private String numberAccount;
+
     @ManyToOne
     private ClientEntity client;
 
     @ManyToOne
     private BankEntity bank;
-
 
 }

@@ -14,8 +14,10 @@ public class ClientEntity {
 
     @NotBlank
     private String numberClient;
+
     @NotBlank
     private String name;
+
     @NotBlank
     private String address;
 
@@ -24,4 +26,5 @@ public class ClientEntity {
 
     @OneToMany(mappedBy = "client")
     private List<AccountEntity> accounts;
+
 }

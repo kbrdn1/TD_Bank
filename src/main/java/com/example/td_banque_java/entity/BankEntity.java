@@ -16,4 +16,5 @@ public class BankEntity {
 
     @OneToMany(mappedBy = "bank")
     List<AccountEntity> accounts;
+
 }
