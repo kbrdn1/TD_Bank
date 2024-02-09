@@ -13,6 +13,10 @@ public class AccountService {
     @Autowired
     private AccountDataMock accountData;
 
+    /**
+     * Get all accounts
+     * @return List<Account>
+     */
     public List<Account> getAllAccounts() {
         return accountData.generateData();
     }

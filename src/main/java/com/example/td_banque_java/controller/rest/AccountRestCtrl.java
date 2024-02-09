@@ -21,6 +21,11 @@ public class AccountRestCtrl {
     private AccountService accountService;
     private final ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Get all accounts
+     * @return JSON
+     * @throws JsonProcessingException
+     */
     @GetMapping(path = "/accounts")
     public String getAccounts() throws JsonProcessingException {
         return mapper.writeValueAsString(accountService.getAllAccounts());

@@ -14,8 +14,20 @@ public abstract class Account {
     protected Client client;
     protected Bank bank;
 
+    /**
+     * Debit money from an account
+     *
+     * @param amount
+     * @throws IllegalArgumentException
+     */
     public abstract void debit(double amount) throws IllegalArgumentException;
 
+    /**
+     * Credit money into an account
+     *
+     * @param amount
+     * @throws IllegalArgumentException
+     */
     public void credit(double amount) throws IllegalArgumentException {
         if(amount < 0)
             throw new IllegalArgumentException("Debit not authorized");
