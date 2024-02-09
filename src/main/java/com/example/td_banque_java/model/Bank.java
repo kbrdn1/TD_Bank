@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Bank {
