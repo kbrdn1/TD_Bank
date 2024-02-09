@@ -2,6 +2,8 @@ package com.example.td_banque_java.controller.rest;
 
 
 import com.example.td_banque_java.service.AccountService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,10 +19,11 @@ public class AccountRestCtrl {
 
     @Autowired
     private AccountService accountService;
+    private final ObjectMapper mapper = new ObjectMapper();
 
     @GetMapping(path = "/accounts")
-    public String getAccounts() {
-        return accountService.getAllAccounts().toString();
+    public String getAccounts() throws JsonProcessingException {
+        return mapper.writeValueAsString(accountService.getAllAccounts());
     }
 
 }
