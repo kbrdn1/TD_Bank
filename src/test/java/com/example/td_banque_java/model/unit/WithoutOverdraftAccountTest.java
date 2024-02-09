@@ -2,7 +2,7 @@ package com.example.td_banque_java.model.unit;
 
 import com.example.td_banque_java.model.Bank;
 import com.example.td_banque_java.model.Client;
-import com.example.td_banque_java.model.WithoutOverdraftAccount;
+import com.example.td_banque_java.model.account.WithoutOverdraftAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,31 +21,40 @@ class WithoutOverdraftAccountTest {
     }
 
     @Test
-    void debit() throws IllegalAccessException {
+    void debit_validAmount_Success() {
         account.debit(100);
         assertEquals(900, account.getBalance());
     }
 
     @Test
-    void debitError() {
-        assertThrows(IllegalAccessException.class, () -> {
+    void debit_negativeValue_throwIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
             account.debit(-100);
         });
     }
 
     @Test
-    void credit() throws IllegalAccessException {
+    void credit_positiveValue_increaseBalanceTo()  {
         account.credit(100);
         assertEquals(1100, account.getBalance());
     }
 
     @Test
-    void creditError() {
-        assertThrows(IllegalAccessException.class, () -> {
+    void credit_negativeValue_throwIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
             account.credit(-100);
         });
     }
 
+    @Test
+    void debit_overdrawn_throwIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            account.debit(2000);
+        });
+    }
+
+
+    //mutators tests
     @Test
     void getSold() {
         assertEquals(1000, account.getBalance());

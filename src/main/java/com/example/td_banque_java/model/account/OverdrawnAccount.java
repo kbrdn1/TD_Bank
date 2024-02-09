@@ -1,5 +1,7 @@
-package com.example.td_banque_java.model;
+package com.example.td_banque_java.model.account;
 
+import com.example.td_banque_java.model.Bank;
+import com.example.td_banque_java.model.Client;
 import lombok.*;
 
 @Getter
@@ -14,11 +16,11 @@ public class OverdrawnAccount extends Account{
     }
 
     @Override
-   public void debit(double amount) throws IllegalAccessException {
+   public void debit(double amount) throws IllegalArgumentException {
         if(this.balance - amount < -this.overdrawnAutorized)
-            throw new IllegalAccessException("Overdrawn not authorized");
+            throw new IllegalArgumentException("Overdrawn not authorized");
         if(amount < 0)
-            throw new IllegalAccessException("Debit not authorized");
+            throw new IllegalArgumentException("Debit not authorized");
         this.balance -= amount;
     }
 
